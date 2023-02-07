@@ -2,7 +2,7 @@ let list = [];
 let currentView = 'ongoing';
 
 const listFromStorage = window.localStorage.getItem('todo-list');
-if (listFromStorage !== undefined) {
+if (listFromStorage) {
     list = JSON.parse(listFromStorage);
 }
 
@@ -22,14 +22,12 @@ function repaint() {
 
 function addEvents() {
     const todolistchecks = document.querySelectorAll('.todo-list_check');
-     
     todolistchecks.forEach(function(item, index) {
         item.addEventListener('click', () => {
-
             if (list[index].status === 'completed') {
-            list[index].status = 'ongoing'
+                list[index].status = 'ongoing'
             } else {
-            list[index].status = 'completed'
+                list[index].status = 'completed'
             }
             repaint();
         });
@@ -37,14 +35,13 @@ function addEvents() {
 }
 
 function paintItem(todoItem, container) {
-    if (todoItem.status === currentView) {
+    // if (todoItem.status === currentView) {
         const template = `<div class="todo-list_item ${todoItem.status}">
         <input class="todo-list_check" type="checkbox" ${todoItem.status === 'completed' ? 'checked' : ''}>
         <label class="todo-list_label">${todoItem.text}</label>
         </div>`;
-        
         container.innerHTML = container.innerHTML + template;
-    }
+    // }
 }
 
 function addTodo() {
